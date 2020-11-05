@@ -8,6 +8,7 @@ productRouter.get('/', productController.listProduct);
 productRouter.get('/:id', productController.getProduct);
 productRouter.delete('/:id', productController.deleteProduct);
 productRouter.put('/:id', productController.updateProduct);
+productRouter.put('/sell/:id', productController.sellProduct);
 
 export {
     productRouter

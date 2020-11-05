@@ -9,7 +9,8 @@ import './index.css'
 interface IProduct {
     id: number;
     name: string;
-    price: number
+    price: number;
+    stock: number
 }
 
 const Products: React.FC = () => {
@@ -38,6 +39,9 @@ const Products: React.FC = () => {
         history.push(`show/${id}`)
     }
 
+    async function sellProduct(id: number) {
+        await api.put(`/api/v1/products/sell/${id}`)
+    }
 
 
     return(
@@ -54,6 +58,7 @@ const Products: React.FC = () => {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Price</th>
+                        <th>Stock</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -64,10 +69,14 @@ const Products: React.FC = () => {
                             <td>{product.id}</td>
                             <td>{product.name}</td>
                             <td>R$ {product.price}</td>
+                            <td>{product.stock}</td>
                             <td>
                                 <Button size="sm" onClick={() => editProduct(product.id)}>Edit</Button> {' '}
                                 <Button size="sm" variant="info" onClick={() => showProduct(product.id)}>Show</Button> {' '}
                                 <Button size="sm" variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button> {' '}
+                            </td>
+                            <td >
+                                <Button size="sm" variant="success"  onClick={() => sellProduct(product.id)}>Sell</Button>
                             </td>
                         </tr>
                         ))

@@ -5,6 +5,7 @@ import api from '../../services/api';
 interface IProduct{
   name: string;
   price: number;
+  stock: number;
 }
 
 const InsertProduct: React.FC = () => {
@@ -16,7 +17,8 @@ const InsertProduct: React.FC = () => {
 
     const [model, setModel] = useState<IProduct>({
       name:'',
-      price:0
+      price:0,
+      stock:0
     })
 
     function updateModel (e: ChangeEvent<HTMLInputElement>) {
@@ -53,6 +55,11 @@ const InsertProduct: React.FC = () => {
               <Form.Group controlId="formBasicPrice">
                 <Form.Label>Price</Form.Label>
                 <Form.Control placeholder="Price" name ="price" onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)}/>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPrice">
+                <Form.Label>Stock</Form.Label>
+                <Form.Control placeholder="Stock" name ="stock" onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)}/>
               </Form.Group>
               <Button variant="dark" type="submit">
                 Insert

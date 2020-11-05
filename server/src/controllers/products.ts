@@ -14,6 +14,9 @@ const insertProduct = (req: Request, res: Response) => {
 
         if (!validateNumber(product.price))
             return badRequest(res, 'Informe o preço');
+        
+        if (!validateNumber(product.stock))
+            return badRequest(res, 'Informe a quantidade');
     }
 
     const product = req.body as Product;
@@ -52,6 +55,33 @@ const updateProduct = async (req: Request, res: Response) => {
             res.json(product);
         })
         .catch(err => internalServerError(res, err));
+}
+
+
+const sellProduct = async (req: Request, res: Response) => {
+
+    const id = parseInt(req.params.id);
+    {
+        if(!validateNumber(id))
+            return badRequest(res, "id inválido")
+        
+        const productSaved = await productModel.getProduct(id);
+        if(!productSaved)
+            return notFouund(res); 
+    }
+
+    const product  = await productModel.getProduct(id) as Product;
+    product.stock -= 1 ;
+
+    if(product.stock >= 0){
+        return productModel.updateProduct(product)
+        .then(product => {
+            res.json(product);
+        })
+        .catch(err => internalServerError(res, err));
+    }
+
+
 }
 
 
@@ -100,10 +130,13 @@ const deleteProduct = async (req: Request, res: Response) => {
 }
 
 
+
+
 export const productController = {
     insertProduct,
     listProduct,
     getProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    sellProduct
 }

@@ -5,17 +5,18 @@ export type Product = {
     id: number;
     name: string;
     price: number;
+    stock: number;
 }
 
 const insertProduct = async(product: Product) => {
-    await dbQuery(`INSERT INTO product (name, price) VALUES(?, ?)`, [product.name, product.price])
+    await dbQuery(`INSERT INTO product (name, price, stock) VALUES(?, ?, ?)`, [product.name, product.price, product.stock])
     let final = await dbQuery(`SELECT seq AS Id from sqlite_sequence WHERE name = 'product'`);
     return getProduct(final[0].Id);
 }
 
 const updateProduct = async(product: Product) => {
-    await dbQuery(`UPDATE product SET name = ?, price = ? WHERE id = ?`, [product.name, product.price, product.id])
-    return getProduct(product.id);
+    await dbQuery(`UPDATE product SET name = ?, price = ?, stock = ? WHERE id = ?`, [product.name, product.price, product.stock,  product.id])
+    return getProduct(product.id); 
 }
 
 const listProduct = async() =>{

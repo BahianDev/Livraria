@@ -7,6 +7,7 @@ interface IProduct{
     id: number;
     name: string;
     price: number;
+    stock: number;
 }
 
 interface ParamTypes{
@@ -32,7 +33,8 @@ const EditProduct: React.FC = () => {
     const [model, setModel] = useState<IProduct>({
       id: 0,
       name:'',
-      price:0
+      price:0,
+      stock: 0
     })
 
     async function findProduct() {
@@ -40,7 +42,8 @@ const EditProduct: React.FC = () => {
         setModel({
             id: parseInt(id),
             name: response.data.name,
-            price: response.data.price
+            price: response.data.price,
+            stock: response.data.stock
         })
     }
 
