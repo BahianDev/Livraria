@@ -26,7 +26,7 @@ const listProduct = async() =>{
 
 const getProduct = async(id: number) =>{
     const final = await dbQueryFirst(`SELECT * FROM product WHERE id = ?`, [id]);
-    return final as Product | undefined
+    return final as Product
 } 
 
 const deleteProduct = async(id: number) =>{

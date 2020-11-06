@@ -80,8 +80,6 @@ const sellProduct = async (req: Request, res: Response) => {
         })
         .catch(err => internalServerError(res, err));
     }
-
-
 }
 
 
@@ -91,6 +89,8 @@ const listProduct = ({}: Request, res: Response) => {
         res.json(products)
     })
     .catch(err => internalServerError(res, err));
+
+    //res.status(200)
 }
 
 const getProduct = (req: Request, res: Response) => {
