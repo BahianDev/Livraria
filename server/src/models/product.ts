@@ -33,11 +33,16 @@ const deleteProduct = async(id: number) =>{
      await dbQueryFirst(`DELETE FROM product WHERE id = ?`, [id]);
 } 
 
+const dropDatabase = async() => {
+    await dbQuery("DELETE FROM product")
+}
+
 
 export const productModel = {
     insertProduct,
     listProduct,
     getProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    dropDatabase
 }
